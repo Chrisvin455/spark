@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
@@ -21,6 +22,7 @@ const io = new Server(httpServer, {
   }
 });
 
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
