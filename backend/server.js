@@ -17,13 +17,21 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: [
+      'http://localhost:5173', 
+      'https://spark1-nrij.onrender.com'
+    ],
     methods: ['GET', 'POST']
   }
 });
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173', 
+    'https://spark1-nrij.onrender.com'
+  ]
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
