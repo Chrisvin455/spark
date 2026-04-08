@@ -16,7 +16,7 @@ export default function Editor() {
   useEffect(() => {
     // In production, we'd use a unique doc ID from the URL params
     const documentId = 'demo-collab-room'; 
-    socketRef.current = io('http://localhost:5000');
+    socketRef.current = io(import.meta.env.VITE_API_URL || 'http://localhost:5000');
     
     socketRef.current.on('connect', () => {
       socketRef.current.emit('join-document', documentId);
@@ -56,7 +56,7 @@ export default function Editor() {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        await fetch('http://localhost:5000/api/analytics/sync-words', {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/analytics/sync-words`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ wordsAdded: wordCount })

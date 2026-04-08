@@ -24,7 +24,7 @@ export default function Generator() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/prompts/generate', formData);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/generate`, formData);
       setPrompt(res.data);
       setIsFavorited(false);
     } catch (err) {
@@ -44,7 +44,7 @@ export default function Generator() {
     try {
       const token = localStorage.getItem('token');
       if (!token) return navigate('/auth');
-      await axios.post('http://localhost:5000/api/auth/favorites', { promptId: prompt._id }, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/favorites`, { promptId: prompt._id }, { headers: { Authorization: `Bearer ${token}` } });
       setIsFavorited(!isFavorited);
     } catch (err) {
       alert("Failed to save favorite.");

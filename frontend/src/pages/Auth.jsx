@@ -20,7 +20,7 @@ export default function Auth() {
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
       const payload = isLogin ? { email: formData.email, password: formData.password } : formData;
-      const res = await axios.post(`http://localhost:5000${endpoint}`, payload);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${endpoint}`, payload);
       
       localStorage.setItem('token', res.data.token);
       navigate('/generate');

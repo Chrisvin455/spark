@@ -8,7 +8,7 @@ export default function Home() {
   const [dailyPrompt, setDailyPrompt] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/prompts/daily').then(res => setDailyPrompt(res.data)).catch(console.error);
+    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/daily`).then(res => setDailyPrompt(res.data)).catch(console.error);
   }, []);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', paddingTop: '3rem' }}>

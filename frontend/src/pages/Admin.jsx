@@ -10,7 +10,7 @@ export default function Admin() {
 
   const fetchPrompts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/prompts/search?term=');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/search?term=`);
       setPrompts(res.data);
     } catch (err) { console.error(err); } finally { setLoading(false); }
   };
@@ -24,7 +24,7 @@ export default function Admin() {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/prompts/admin', form, config);
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/admin`, form, config);
       setForm({ text: '', genre: 'Anti-Gravity or Space', mood: 'Dark', difficulty: 'Medium' });
       fetchPrompts();
     } catch (err) { alert('Admin creation failed: ' + (err.response?.data?.error || err.message)); }
@@ -32,14 +32,14 @@ export default function Admin() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/prompts/admin/${id}`, config);
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/admin/${id}`, config);
       fetchPrompts();
     } catch (err) { alert('Delete failed'); }
   };
 
   const setDaily = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/prompts/admin/${id}/set-daily`, {}, config);
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/admin/${id}/set-daily`, {}, config);
       fetchPrompts();
     } catch (err) { alert('Set daily failed'); }
   };

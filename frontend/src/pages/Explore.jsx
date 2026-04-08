@@ -11,7 +11,7 @@ export default function Explore() {
 
   const fetchSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/prompts/search?term=${params.term}&genre=${params.genre}&difficulty=${params.difficulty}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/search?term=${params.term}&genre=${params.genre}&difficulty=${params.difficulty}`);
       setPrompts(res.data);
     } catch (err) { console.error(err); }
   };
@@ -20,7 +20,7 @@ export default function Explore() {
 
   const handleRandom = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/prompts/random');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/prompts/random`);
       if (res.data) {
         navigate('/editor', { state: { promptText: res.data.text } });
       }
